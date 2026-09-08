@@ -20,6 +20,7 @@ Bernd Fischer, Mike L. Smith
 ## Examples
 
 ``` r
+
 h5version()
-#> This is Bioconductor rhdf5 2.55.13 linking to C-library HDF5 1.10.7 and rhdf5filters 1.22.0
+#> This is Bioconductor rhdf5 2.57.12 linking to C-library HDF5 1.14.6 (Rhdf5lib version: 2.1.0) and rhdf5filters 1.25.4
 ```

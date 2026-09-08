@@ -77,7 +77,6 @@
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pcreate.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pfill_value_defined.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pget_class.html</loc></url>
-<url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pget_version.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pobject_track_times.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pset_blosc.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/H5Pset_bzip2.html</loc></url>
@@ -135,11 +134,11 @@
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5_set_extent.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5_write.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5_writeAttribute.html</loc></url>
-<url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5checkFilters.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5closeAll.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5constants.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5createAttribute.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5createDataset.html</loc></url>
+<url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5getAllChunkInfo.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5listObjects.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5ls.html</loc></url>
 <url><loc>https://huber-group-embl.github.io/rhdf5/reference/h5readTimestamps.html</loc></url>

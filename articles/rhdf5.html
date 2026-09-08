@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="rhdf5 - HDF5 interface for R">
 </head>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rhdf5</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.55.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.57.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,11 +84,15 @@ L. Smith</h4>
 the C interface. On the other hand it provides high level convenience
 functions on <strong>R</strong> level to make a usage of HDF5 files more
 easy.</p>
-<p>#Installation of the HDF5 package To install the <em><a href="https://bioconductor.org/packages/3.22/rhdf5" class="external-link">rhdf5</a></em>
-package, you need a current version (&gt;3.5.0) of <strong>R</strong>
+</div>
+<div class="section level2">
+<h2 id="installation-of-the-hdf5-package">Installation of the HDF5 package<a class="anchor" aria-label="anchor" href="#installation-of-the-hdf5-package"></a>
+</h2>
+<p>To install the <em><a href="https://bioconductor.org/packages/3.24/rhdf5" class="external-link">rhdf5</a></em>
+package, you need a current version (&gt;= 4.0.0) of <strong>R</strong>
 (www.r-project.org). After installing <strong>R</strong> you can run the
 following commands from the <strong>R</strong> command shell to install
-<em><a href="https://bioconductor.org/packages/3.22/rhdf5" class="external-link">rhdf5</a></em>.</p>
+<em><a href="https://bioconductor.org/packages/3.24/rhdf5" class="external-link">rhdf5</a></em>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"rhdf5"</span><span class="op">)</span></span></code></pre></div>
@@ -130,10 +134,13 @@ given as argument to <code><a href="../reference/h5_write.html">h5write()</a></c
 <span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="va">B</span>, <span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/B"</span><span class="op">)</span></span>
 <span><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
-<span>  nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">5</span></span>
+<span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="va">C</span>, <span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/foobaa/C"</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">:</span><span class="fl">5L</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="fl">1L</span><span class="op">:</span><span class="fl">5L</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ab"</span>, <span class="st">"cde"</span>, <span class="st">"fghi"</span>, <span class="st">"a"</span>, <span class="st">"s"</span><span class="op">)</span>,</span>
 <span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
@@ -272,7 +279,11 @@ not used anymore</p>
 <p>or close all open HDF5 handles in the environment by</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/h5closeAll.html">h5closeAll</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>The <em><a href="https://bioconductor.org/packages/3.22/rhdf5" class="external-link">rhdf5</a></em>
+</div>
+<div class="section level3">
+<h3 id="writing-and-reading-with-subsetting-chunking-and-compression">Writing and reading with subsetting, chunking and compression<a class="anchor" aria-label="anchor" href="#writing-and-reading-with-subsetting-chunking-and-compression"></a>
+</h3>
+<p>The <em><a href="https://bioconductor.org/packages/3.24/rhdf5" class="external-link">rhdf5</a></em>
 package provides two ways of subsetting. One can specify the submatrix
 with the <strong>R</strong>-style index lists or with the HDF5 style
 hyperslabs. Note, that the two next examples below show two alternative
@@ -281,6 +292,9 @@ subsetting or hyperslabbing, the dataset with full dimensions has to be
 created in the HDF5 file. This can be achieved by writing once an array
 with full dimensions as in Section or by creating a dataset. Afterwards
 the dataset can be written sequentially.</p>
+<div class="section level4">
+<h4 id="influence-of-chunk-size-and-compression-level">Influence of chunk size and compression level<a class="anchor" aria-label="anchor" href="#influence-of-chunk-size-and-compression-level"></a>
+</h4>
 <p>The chosen chunk size and compression level have a strong impact on
 the reading and writing time as well as on the resulting file size. In
 an example an integer vector of size 10e7 is written to an HDF5 file.
@@ -298,12 +312,19 @@ sequentially to the HDF5 file. Subsetting in <strong>R</strong>-style
 needs the specification of the argument index to <code><a href="../reference/h5_read.html">h5read()</a></code>
 and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5createDataset.html">h5createDataset</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/S"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,</span>
-<span>  storage.mode <span class="op">=</span> <span class="st">"integer"</span>, chunk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>, level <span class="op">=</span> <span class="fl">7</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5createDataset.html">h5createDataset</a></span><span class="op">(</span></span>
+<span>  <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  <span class="st">"foo/S"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,</span>
+<span>  storage.mode <span class="op">=</span> <span class="st">"integer"</span>,</span>
+<span>  chunk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="fl">7</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
-<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>,</span>
+<span>  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/S"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
@@ -313,10 +334,7 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]    4    0    0    0    0    0    0    0</span></span>
 <span><span class="co">## [5,]    5    0    0    0    0    0    0    0</span></span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
-<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span>, file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>, name <span class="op">=</span> <span class="st">"foo/S"</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/S"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
 <span><span class="co">## [1,]    1    6    7    8    9   10    0    0</span></span>
@@ -325,9 +343,11 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]    4    0    0    0    0    0    0    0</span></span>
 <span><span class="co">## [5,]    5    0    0    0    0    0    0    0</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">40</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">40</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
-<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
+<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>,</span>
+<span>  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/S"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
@@ -337,9 +357,11 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]    4    0   14   19   24   29   34   39</span></span>
 <span><span class="co">## [5,]    5    0   15   20   25   30   35   40</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">141</span><span class="op">:</span><span class="fl">144</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">141</span><span class="op">:</span><span class="fl">144</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
-<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>,</span>
+<span>  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/S"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
@@ -349,9 +371,11 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]  142  144   14   19   24   29   34   39</span></span>
 <span><span class="co">## [5,]    5    0   15   20   25   30   35   40</span></span></code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">151</span><span class="op">:</span><span class="fl">154</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">151</span><span class="op">:</span><span class="fl">154</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
-<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span>  name <span class="op">=</span> <span class="st">"foo/S"</span>,</span>
+<span>  index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/S"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
@@ -380,12 +404,18 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <code>block</code>. These arguments are not effective, if the argument
 <code>index</code> is specified.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5createDataset.html">h5createDataset</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5createDataset.html">h5createDataset</a></span><span class="op">(</span></span>
+<span>  <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  <span class="st">"foo/H"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>,</span>
 <span>  storage.mode <span class="op">=</span> <span class="st">"integer"</span>,</span>
-<span>  chunk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>, level <span class="op">=</span> <span class="fl">7</span></span>
+<span>  chunk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="fl">7</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>, name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
+<span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
 <span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span><span class="op">)</span></span></code></pre></div>
@@ -396,9 +426,12 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]    4    0    0    0    0    0    0    0</span></span>
 <span><span class="co">## [5,]    5    0    0    0    0    0    0    0</span></span></code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>, name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
-<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fl">6</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
@@ -408,8 +441,10 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]    4    0    0    0    0    0    0    0</span></span>
 <span><span class="co">## [5,]    5    0    0    0    0    0    0    0</span></span></code></pre>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">40</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>, name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">40</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
 <span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span><span class="op">)</span></span></code></pre></div>
@@ -420,8 +455,10 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]    4    0   14   19   24   29   34   39</span></span>
 <span><span class="co">## [5,]    5    0   15   20   25   30   35   40</span></span></code></pre>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">141</span><span class="op">:</span><span class="fl">144</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>, name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">141</span><span class="op">:</span><span class="fl">144</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
 <span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span><span class="op">)</span></span></code></pre></div>
@@ -432,9 +469,12 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]  142  144   14   19   24   29   34   39</span></span>
 <span><span class="co">## [5,]    5    0   15   20   25   30   35   40</span></span></code></pre>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">151</span><span class="op">:</span><span class="fl">154</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>, name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
-<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, stride <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">151</span><span class="op">:</span><span class="fl">154</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"foo/H"</span>,</span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  stride <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span></span>
@@ -444,26 +484,34 @@ and <code><a href="../reference/h5_write.html">h5write()</a></code>.</p>
 <span><span class="co">## [4,]  142  144   14   19   24   29   34   39</span></span>
 <span><span class="co">## [5,]    5    0   15   20   25   30   35   40</span></span></code></pre>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span>,</span>
-<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2]</span></span>
 <span><span class="co">## [1,]    0  151</span></span>
 <span><span class="co">## [2,]  143  152</span></span></code></pre>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span>,</span>
-<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, stride <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span></span>
+<span>  <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  <span class="st">"foo/H"</span>,</span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  stride <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2]</span></span>
 <span><span class="co">## [1,]    0   17</span></span>
 <span><span class="co">## [2,]  143   18</span></span></code></pre>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span>, <span class="st">"foo/H"</span>,</span>
-<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>, stride <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, block <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/h5_read.html">h5read</a></span><span class="op">(</span></span>
+<span>  <span class="st">"myhdf5file.h5"</span>,</span>
+<span>  <span class="st">"foo/H"</span>,</span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  stride <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  block <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
 <span><span class="co">## [1,]    2    0   17   22</span></span>
 <span><span class="co">## [2,]  141  143   18   23</span></span></code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="saving-multiple-objects-to-an-hdf5-file-h5save">Saving multiple objects to an HDF5 file (h5save)<a class="anchor" aria-label="anchor" href="#saving-multiple-objects-to-an-hdf5-file-h5save"></a>
@@ -615,7 +663,7 @@ file in bytes.</p>
 <span><span class="co">## 7  /foo foobaa   H5I_GROUP</span></span></code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/file.info.html" class="external-link">file.size</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 26165</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 32299</span></span></code></pre>
 <p>We then use <code><a href="../reference/h5_delete.html">h5delete()</a></code> to remove the <strong>df</strong>
 dataset by providing the file name and the name of the dataset, e.g.</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
@@ -642,7 +690,7 @@ decreased.</p>
 <span><span class="co">## 0     /  baa H5I_GROUP</span></span></code></pre>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/file.info.html" class="external-link">file.size</a></span><span class="op">(</span><span class="st">"myhdf5file.h5"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 26105</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 32239</span></span></code></pre>
 <p><em>N.B. <code><a href="../reference/h5_delete.html">h5delete()</a></code> does not explicitly traverse the
 tree to remove child nodes. It only removes the named entry, and HDF5
 will then remove child nodes if they are now orphaned. Hence it won’t
@@ -656,7 +704,7 @@ node has multiple parents and only one of these is removed.</em></p>
 <p><strong>R</strong> does not support a native datatype for 64-bit
 integers. All integers in <strong>R</strong> are 32-bit integers. When
 reading 64-bit integers from a HDF5-file, you may run into troubles.
-<em><a href="https://bioconductor.org/packages/3.22/rhdf5" class="external-link">rhdf5</a></em> is
+<em><a href="https://bioconductor.org/packages/3.24/rhdf5" class="external-link">rhdf5</a></em> is
 able to deal with 64-bit integers, but you still should pay
 attention.</p>
 <p>As an example, we create an HDF5 file that contains 64-bit
@@ -665,7 +713,12 @@ integers.</p>
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h5_createFile.html">h5createFile</a></span><span class="op">(</span><span class="st">"newfile3.h5"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">:</span><span class="fl">30L</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h5createDataset.html">h5createDataset</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"newfile3.h5"</span>, dataset <span class="op">=</span> <span class="st">"D64"</span>, dims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>, H5type <span class="op">=</span> <span class="st">"H5T_NATIVE_INT64"</span><span class="op">)</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h5createDataset.html">h5createDataset</a></span><span class="op">(</span></span>
+<span>  file <span class="op">=</span> <span class="st">"newfile3.h5"</span>,</span>
+<span>  dataset <span class="op">=</span> <span class="st">"D64"</span>,</span>
+<span>  dims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  H5type <span class="op">=</span> <span class="st">"H5T_NATIVE_INT64"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/h5_write.html">h5write</a></span><span class="op">(</span><span class="va">D</span>, file <span class="op">=</span> <span class="st">"newfile3.h5"</span>, name <span class="op">=</span> <span class="st">"D64"</span><span class="op">)</span></span></code></pre></div>
 <p>There are three different ways of reading 64-bit integers in
 <strong>R</strong>. <code><a href="../reference/H5Dread.html">H5Dread()</a></code> and <code><a href="../reference/h5_read.html">h5read()</a></code>
@@ -845,9 +898,9 @@ functions to close datasets, dataspaces, groups, and files.</p>
 </h2>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.5.2 (2025-10-31)</span></span>
+<pre><code><span><span class="co">## R Under development (unstable) (2026-09-07 r90504)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">## Running under: Ubuntu 24.04.3 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -866,20 +919,20 @@ functions to close datasets, dataspaces, groups, and files.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] rhdf5_2.55.13    BiocStyle_2.38.0</span></span>
+<span><span class="co">## [1] rhdf5_2.57.12    BiocStyle_2.41.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] cli_3.6.5           knitr_1.51          rlang_1.1.7        </span></span>
-<span><span class="co">##  [4] xfun_0.56           textshaping_1.0.4   jsonlite_2.0.0     </span></span>
-<span><span class="co">##  [7] bit_4.6.0           htmltools_0.5.9     ragg_1.5.0         </span></span>
-<span><span class="co">## [10] sass_0.4.10         rmarkdown_2.30      evaluate_1.0.5     </span></span>
-<span><span class="co">## [13] jquerylib_0.1.4     fastmap_1.2.0       yaml_2.3.12        </span></span>
-<span><span class="co">## [16] lifecycle_1.0.5     Rhdf5lib_1.32.0     bookdown_0.46      </span></span>
-<span><span class="co">## [19] BiocManager_1.30.27 compiler_4.5.2      fs_1.6.6           </span></span>
-<span><span class="co">## [22] rhdf5filters_1.22.0 systemfonts_1.3.1   digest_0.6.39      </span></span>
-<span><span class="co">## [25] R6_2.6.1            bslib_0.10.0        bit64_4.6.0-1      </span></span>
-<span><span class="co">## [28] tools_4.5.2         pkgdown_2.2.0       cachem_1.1.0       </span></span>
-<span><span class="co">## [31] desc_1.4.3</span></span></code></pre>
+<span><span class="co">##  [1] cli_3.6.6           knitr_1.52          rlang_1.3.0        </span></span>
+<span><span class="co">##  [4] xfun_0.60           otel_0.2.0          textshaping_1.0.5  </span></span>
+<span><span class="co">##  [7] jsonlite_2.0.0      bit_4.6.0           htmltools_0.5.9    </span></span>
+<span><span class="co">## [10] ragg_1.5.2          sass_0.4.10         rmarkdown_2.32     </span></span>
+<span><span class="co">## [13] evaluate_1.0.5      jquerylib_0.1.4     fastmap_1.2.0      </span></span>
+<span><span class="co">## [16] Rhdf5lib_2.1.0      yaml_2.3.12         lifecycle_1.0.5    </span></span>
+<span><span class="co">## [19] bookdown_0.48       BiocManager_1.30.27 compiler_4.7.0     </span></span>
+<span><span class="co">## [22] fs_2.1.0            rhdf5filters_1.25.4 systemfonts_1.3.2  </span></span>
+<span><span class="co">## [25] digest_0.6.39       R6_2.6.1            bslib_0.12.0       </span></span>
+<span><span class="co">## [28] bit64_4.8.6         tools_4.7.0         pkgdown_2.2.1      </span></span>
+<span><span class="co">## [31] cachem_1.1.0        desc_1.4.3</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -892,7 +945,7 @@ functions to close datasets, dataspaces, groups, and files.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

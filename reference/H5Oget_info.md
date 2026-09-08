@@ -19,6 +19,7 @@ H5Oget_info(h5loc)
 ## Examples
 
 ``` r
+
 ## Create a temporary copy of an example file check the contents
 example_file <- system.file("testfiles", "h5ex_t_array.h5", package = "rhdf5")
 
@@ -30,7 +31,7 @@ did <- H5Dopen(fid, "/DS1")
 ## List the available object information for both groups and datasets
 H5Oget_info(h5loc = gid)
 #> $file_num
-#> [1] 34
+#> [1] 52
 #> 
 #> $type
 #> [1] "GROUP"
@@ -56,7 +57,7 @@ H5Oget_info(h5loc = gid)
 
 H5Oget_info(h5loc = did)
 #> $file_num
-#> [1] 34
+#> [1] 52
 #> 
 #> $type
 #> [1] "DATASET"

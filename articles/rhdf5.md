@@ -7,14 +7,16 @@ The package is an R interface for HDF5. On the one hand it implements
 interface. On the other hand it provides high level convenience
 functions on **R** level to make a usage of HDF5 files more easy.
 
-\#Installation of the HDF5 package To install the
-*[rhdf5](https://bioconductor.org/packages/3.22/rhdf5)* package, you
-need a current version (\>3.5.0) of **R** (www.r-project.org). After
-installing **R** you can run the following commands from the **R**
-command shell to install
-*[rhdf5](https://bioconductor.org/packages/3.22/rhdf5)*.
+## Installation of the HDF5 package
+
+To install the *[rhdf5](https://bioconductor.org/packages/3.24/rhdf5)*
+package, you need a current version (\>= 4.0.0) of **R**
+(www.r-project.org). After installing **R** you can run the following
+commands from the **R** command shell to install
+*[rhdf5](https://bioconductor.org/packages/3.24/rhdf5)*.
 
 ``` r
+
 install.packages("BiocManager")
 BiocManager::install("rhdf5")
 ```
@@ -26,6 +28,7 @@ BiocManager::install("rhdf5")
 An empty HDF5 file is created by
 
 ``` r
+
 library(rhdf5)
 h5createFile("myhdf5file.h5")
 ```
@@ -34,6 +37,7 @@ The HDF5 file can contain a group hierarchy. We create a number of
 groups and list the file content afterwards.
 
 ``` r
+
 h5createGroup("myhdf5file.h5", "foo")
 h5createGroup("myhdf5file.h5", "baa")
 h5createGroup("myhdf5file.h5", "foo/foobaa")
@@ -54,6 +58,7 @@ argument to
 Note that not all **R**-attributes can be written as HDF5 attributes.
 
 ``` r
+
 A <- matrix(1:10, nrow = 5, ncol = 2)
 h5write(A, "myhdf5file.h5", "foo/A")
 B <- array(seq(0.1, 2.0, by = 0.1), dim = c(5, 2, 2))
@@ -61,10 +66,13 @@ attr(B, "scale") <- "liter"
 h5write(B, "myhdf5file.h5", "foo/B")
 C <- matrix(
   paste(LETTERS[1:10], LETTERS[11:20], collapse = ""),
-  nrow = 2, ncol = 5
+  nrow = 2,
+  ncol = 5
 )
 h5write(C, "myhdf5file.h5", "foo/foobaa/C")
-df <- data.frame(1L:5L, seq(0, 1, length.out = 5),
+df <- data.frame(
+  1L:5L,
+  seq(0, 1, length.out = 5),
   c("ab", "cde", "fghi", "a", "s"),
   stringsAsFactors = FALSE
 )
@@ -82,6 +90,7 @@ h5ls("myhdf5file.h5")
     ## 6 /foo/foobaa      C H5I_DATASET   STRING     2 x 5
 
 ``` r
+
 D <- h5read("myhdf5file.h5", "foo/A")
 E <- h5read("myhdf5file.h5", "foo/B")
 F <- h5read("myhdf5file.h5", "foo/foobaa/C")
@@ -104,6 +113,7 @@ to write) HDF5 files. A file is opened by
 [`H5Fopen()`](https://huber-group-embl.github.io/rhdf5/reference/H5Fopen.md).
 
 ``` r
+
 h5f <- H5Fopen("myhdf5file.h5")
 h5f
 ```
@@ -122,6 +132,7 @@ While the `$` operator reads the object from disk, the `&` operator
 returns a group or dataset handle.
 
 ``` r
+
 h5f$df
 ```
 
@@ -133,6 +144,7 @@ h5f$df
     ## 5      5                      1.00                                s
 
 ``` r
+
 h5f & "df"
 ```
 
@@ -152,6 +164,7 @@ subsets to `/foobaa/C`, and the second version only reads the matrix
 consequences for large datasets and datastructures.
 
 ``` r
+
 h5f$foo$foobaa$C
 ```
 
@@ -166,6 +179,7 @@ h5f$foo$foobaa$C
     ## [2,] "A KB LC MD NE OF PG QH RI SJ T"
 
 ``` r
+
 h5f$"/foo/foobaa/C"
 ```
 
@@ -183,6 +197,7 @@ One can as well return a dataset handle for a matrix and then read the
 matrix in chunks for out-of-memory computations. .
 
 ``` r
+
 h5d <- h5f & "/foo/B"
 h5d[]
 ```
@@ -206,6 +221,7 @@ h5d[]
     ## [5,]  1.5  2.0
 
 ``` r
+
 h5d[3, , ]
 ```
 
@@ -216,6 +232,7 @@ h5d[3, , ]
 The same works as well for writing to datasets.
 
 ``` r
+
 h5d[3, , ] <- 1:4
 H5Fflush(h5f)
 ```
@@ -224,6 +241,7 @@ Remind again that in the following code the first version does not
 change the data on disk, but the second does.
 
 ``` r
+
 h5f$foo$B <- 101:120
 h5f$"/foo/B" <- 101:120
 ```
@@ -232,6 +250,7 @@ It is important to close all dataset, group, and file handles when not
 used anymore
 
 ``` r
+
 H5Dclose(h5d)
 H5Fclose(h5f)
 ```
@@ -239,10 +258,13 @@ H5Fclose(h5f)
 or close all open HDF5 handles in the environment by
 
 ``` r
+
 h5closeAll()
 ```
 
-The *[rhdf5](https://bioconductor.org/packages/3.22/rhdf5)* package
+### Writing and reading with subsetting, chunking and compression
+
+The *[rhdf5](https://bioconductor.org/packages/3.24/rhdf5)* package
 provides two ways of subsetting. One can specify the submatrix with the
 **R**-style index lists or with the HDF5 style hyperslabs. Note, that
 the two next examples below show two alternative ways for reading and
@@ -251,6 +273,8 @@ hyperslabbing, the dataset with full dimensions has to be created in the
 HDF5 file. This can be achieved by writing once an array with full
 dimensions as in Section or by creating a dataset. Afterwards the
 dataset can be written sequentially.
+
+#### Influence of chunk size and compression level
 
 The chosen chunk size and compression level have a strong impact on the
 reading and writing time as well as on the resulting file size. In an
@@ -274,12 +298,20 @@ and
 [`h5write()`](https://huber-group-embl.github.io/rhdf5/reference/h5_write.md).
 
 ``` r
-h5createDataset("myhdf5file.h5", "foo/S", c(5, 8),
-  storage.mode = "integer", chunk = c(5, 1), level = 7
+
+h5createDataset(
+  "myhdf5file.h5",
+  "foo/S",
+  c(5, 8),
+  storage.mode = "integer",
+  chunk = c(5, 1),
+  level = 7
 )
-h5write(matrix(1:5, nrow = 5, ncol = 1),
+h5write(
+  matrix(1:5, nrow = 5, ncol = 1),
   file = "myhdf5file.h5",
-  name = "foo/S", index = list(NULL, 1)
+  name = "foo/S",
+  index = list(NULL, 1)
 )
 h5read("myhdf5file.h5", "foo/S")
 ```
@@ -292,10 +324,8 @@ h5read("myhdf5file.h5", "foo/S")
     ## [5,]    5    0    0    0    0    0    0    0
 
 ``` r
-h5write(6:10,
-  file = "myhdf5file.h5",
-  name = "foo/S", index = list(1, 2:6)
-)
+
+h5write(6:10, file = "myhdf5file.h5", name = "foo/S", index = list(1, 2:6))
 h5read("myhdf5file.h5", "foo/S")
 ```
 
@@ -307,9 +337,12 @@ h5read("myhdf5file.h5", "foo/S")
     ## [5,]    5    0    0    0    0    0    0    0
 
 ``` r
-h5write(matrix(11:40, nrow = 5, ncol = 6),
+
+h5write(
+  matrix(11:40, nrow = 5, ncol = 6),
   file = "myhdf5file.h5",
-  name = "foo/S", index = list(1:5, 3:8)
+  name = "foo/S",
+  index = list(1:5, 3:8)
 )
 h5read("myhdf5file.h5", "foo/S")
 ```
@@ -322,9 +355,12 @@ h5read("myhdf5file.h5", "foo/S")
     ## [5,]    5    0   15   20   25   30   35   40
 
 ``` r
-h5write(matrix(141:144, nrow = 2, ncol = 2),
+
+h5write(
+  matrix(141:144, nrow = 2, ncol = 2),
   file = "myhdf5file.h5",
-  name = "foo/S", index = list(3:4, 1:2)
+  name = "foo/S",
+  index = list(3:4, 1:2)
 )
 h5read("myhdf5file.h5", "foo/S")
 ```
@@ -337,9 +373,12 @@ h5read("myhdf5file.h5", "foo/S")
     ## [5,]    5    0   15   20   25   30   35   40
 
 ``` r
-h5write(matrix(151:154, nrow = 2, ncol = 2),
+
+h5write(
+  matrix(151:154, nrow = 2, ncol = 2),
   file = "myhdf5file.h5",
-  name = "foo/S", index = list(2:3, c(3, 6))
+  name = "foo/S",
+  index = list(2:3, c(3, 6))
 )
 h5read("myhdf5file.h5", "foo/S")
 ```
@@ -352,6 +391,7 @@ h5read("myhdf5file.h5", "foo/S")
     ## [5,]    5    0   15   20   25   30   35   40
 
 ``` r
+
 h5read("myhdf5file.h5", "foo/S", index = list(2:3, 2:3))
 ```
 
@@ -360,6 +400,7 @@ h5read("myhdf5file.h5", "foo/S", index = list(2:3, 2:3))
     ## [2,]  143  152
 
 ``` r
+
 h5read("myhdf5file.h5", "foo/S", index = list(2:3, c(2, 4)))
 ```
 
@@ -368,6 +409,7 @@ h5read("myhdf5file.h5", "foo/S", index = list(2:3, c(2, 4)))
     ## [2,]  143   18
 
 ``` r
+
 h5read("myhdf5file.h5", "foo/S", index = list(2:3, c(1, 2, 4, 5)))
 ```
 
@@ -380,12 +422,19 @@ The HDF5 hyperslabs are defined by some of the arguments `start`,
 the argument `index` is specified.
 
 ``` r
-h5createDataset("myhdf5file.h5", "foo/H", c(5, 8),
+
+h5createDataset(
+  "myhdf5file.h5",
+  "foo/H",
+  c(5, 8),
   storage.mode = "integer",
-  chunk = c(5, 1), level = 7
+  chunk = c(5, 1),
+  level = 7
 )
-h5write(matrix(1:5, nrow = 5, ncol = 1),
-  file = "myhdf5file.h5", name = "foo/H",
+h5write(
+  matrix(1:5, nrow = 5, ncol = 1),
+  file = "myhdf5file.h5",
+  name = "foo/H",
   start = c(1, 1)
 )
 h5read("myhdf5file.h5", "foo/H")
@@ -399,9 +448,13 @@ h5read("myhdf5file.h5", "foo/H")
     ## [5,]    5    0    0    0    0    0    0    0
 
 ``` r
-h5write(6:10,
-  file = "myhdf5file.h5", name = "foo/H",
-  start = c(1, 2), count = c(1, 5)
+
+h5write(
+  6:10,
+  file = "myhdf5file.h5",
+  name = "foo/H",
+  start = c(1, 2),
+  count = c(1, 5)
 )
 h5read("myhdf5file.h5", "foo/H")
 ```
@@ -414,8 +467,11 @@ h5read("myhdf5file.h5", "foo/H")
     ## [5,]    5    0    0    0    0    0    0    0
 
 ``` r
-h5write(matrix(11:40, nrow = 5, ncol = 6),
-  file = "myhdf5file.h5", name = "foo/H",
+
+h5write(
+  matrix(11:40, nrow = 5, ncol = 6),
+  file = "myhdf5file.h5",
+  name = "foo/H",
   start = c(1, 3)
 )
 h5read("myhdf5file.h5", "foo/H")
@@ -429,8 +485,11 @@ h5read("myhdf5file.h5", "foo/H")
     ## [5,]    5    0   15   20   25   30   35   40
 
 ``` r
-h5write(matrix(141:144, nrow = 2, ncol = 2),
-  file = "myhdf5file.h5", name = "foo/H",
+
+h5write(
+  matrix(141:144, nrow = 2, ncol = 2),
+  file = "myhdf5file.h5",
+  name = "foo/H",
   start = c(3, 1)
 )
 h5read("myhdf5file.h5", "foo/H")
@@ -444,9 +503,13 @@ h5read("myhdf5file.h5", "foo/H")
     ## [5,]    5    0   15   20   25   30   35   40
 
 ``` r
-h5write(matrix(151:154, nrow = 2, ncol = 2),
-  file = "myhdf5file.h5", name = "foo/H",
-  start = c(2, 3), stride = c(1, 3)
+
+h5write(
+  matrix(151:154, nrow = 2, ncol = 2),
+  file = "myhdf5file.h5",
+  name = "foo/H",
+  start = c(2, 3),
+  stride = c(1, 3)
 )
 h5read("myhdf5file.h5", "foo/H")
 ```
@@ -459,9 +522,8 @@ h5read("myhdf5file.h5", "foo/H")
     ## [5,]    5    0   15   20   25   30   35   40
 
 ``` r
-h5read("myhdf5file.h5", "foo/H",
-  start = c(2, 2), count = c(2, 2)
-)
+
+h5read("myhdf5file.h5", "foo/H", start = c(2, 2), count = c(2, 2))
 ```
 
     ##      [,1] [,2]
@@ -469,8 +531,13 @@ h5read("myhdf5file.h5", "foo/H",
     ## [2,]  143  152
 
 ``` r
-h5read("myhdf5file.h5", "foo/H",
-  start = c(2, 2), stride = c(1, 2), count = c(2, 2)
+
+h5read(
+  "myhdf5file.h5",
+  "foo/H",
+  start = c(2, 2),
+  stride = c(1, 2),
+  count = c(2, 2)
 )
 ```
 
@@ -479,8 +546,14 @@ h5read("myhdf5file.h5", "foo/H",
     ## [2,]  143   18
 
 ``` r
-h5read("myhdf5file.h5", "foo/H",
-  start = c(2, 1), stride = c(1, 3), count = c(2, 2), block = c(1, 2)
+
+h5read(
+  "myhdf5file.h5",
+  "foo/H",
+  start = c(2, 1),
+  stride = c(1, 3),
+  count = c(2, 2),
+  block = c(1, 2)
 )
 ```
 
@@ -497,6 +570,7 @@ file with the function
 [`save()`](https://rdrr.io/r/base/save.html)).
 
 ``` r
+
 A <- 1:7
 B <- 1:18
 D <- seq(0, 1, by = 0.1)
@@ -520,6 +594,7 @@ The function
 provides some ways of viewing the content of an HDF5 file.
 
 ``` r
+
 h5ls("myhdf5file.h5")
 ```
 
@@ -535,6 +610,7 @@ h5ls("myhdf5file.h5")
     ## 8 /foo/foobaa      C H5I_DATASET   STRING     2 x 5
 
 ``` r
+
 h5ls("myhdf5file.h5", all = TRUE)
 ```
 
@@ -560,6 +636,7 @@ h5ls("myhdf5file.h5", all = TRUE)
     ## 8     H5T_STRING SIMPLE    2     2 x 5     2 x 5
 
 ``` r
+
 h5ls("myhdf5file.h5", recursive = 2)
 ```
 
@@ -586,6 +663,7 @@ default argument `load=TRUE` is used all datasets from the HDF5 file are
 read.
 
 ``` r
+
 h5dump("myhdf5file.h5", load = FALSE)
 ```
 
@@ -619,6 +697,7 @@ h5dump("myhdf5file.h5", load = FALSE)
     ## 1     /    C H5I_DATASET STRING 2 x 5
 
 ``` r
+
 D <- h5dump("myhdf5file.h5")
 ```
 
@@ -631,6 +710,7 @@ installed) or with the graphical user interface **HDFView**
 major platforms.
 
 ``` r
+
 system2("h5dump", "myhdf5file.h5")
 ```
 
@@ -648,6 +728,7 @@ To demonstrate it’s use, we’ll first list the contents of a file and
 examine the size of the file in bytes.
 
 ``` r
+
 h5ls("myhdf5file.h5", recursive = 2)
 ```
 
@@ -662,10 +743,11 @@ h5ls("myhdf5file.h5", recursive = 2)
     ## 7  /foo foobaa   H5I_GROUP
 
 ``` r
+
 file.size("myhdf5file.h5")
 ```
 
-    ## [1] 26165
+    ## [1] 32299
 
 We then use
 [`h5delete()`](https://huber-group-embl.github.io/rhdf5/reference/h5_delete.md)
@@ -673,6 +755,7 @@ to remove the **df** dataset by providing the file name and the name of
 the dataset, e.g.
 
 ``` r
+
 h5delete(file = "myhdf5file.h5", name = "df")
 h5ls("myhdf5file.h5", recursive = 2)
 ```
@@ -694,6 +777,7 @@ will remove children of the deleted entry too. In this example we remove
 size of the file as decreased.
 
 ``` r
+
 h5delete(file = "myhdf5file.h5", name = "foo")
 h5ls("myhdf5file.h5", recursive = 2)
 ```
@@ -702,10 +786,11 @@ h5ls("myhdf5file.h5", recursive = 2)
     ## 0     /  baa H5I_GROUP
 
 ``` r
+
 file.size("myhdf5file.h5")
 ```
 
-    ## [1] 26105
+    ## [1] 32239
 
 *N.B.
 [`h5delete()`](https://huber-group-embl.github.io/rhdf5/reference/h5_delete.md)
@@ -720,16 +805,22 @@ of these is removed.*
 **R** does not support a native datatype for 64-bit integers. All
 integers in **R** are 32-bit integers. When reading 64-bit integers from
 a HDF5-file, you may run into troubles.
-*[rhdf5](https://bioconductor.org/packages/3.22/rhdf5)* is able to deal
+*[rhdf5](https://bioconductor.org/packages/3.24/rhdf5)* is able to deal
 with 64-bit integers, but you still should pay attention.
 
 As an example, we create an HDF5 file that contains 64-bit integers.
 
 ``` r
+
 x <- h5createFile("newfile3.h5")
 
 D <- array(1L:30L, dim = c(3, 5, 2))
-d <- h5createDataset(file = "newfile3.h5", dataset = "D64", dims = c(3, 5, 2), H5type = "H5T_NATIVE_INT64")
+d <- h5createDataset(
+  file = "newfile3.h5",
+  dataset = "D64",
+  dims = c(3, 5, 2),
+  H5type = "H5T_NATIVE_INT64"
+)
 h5write(D, file = "newfile3.h5", name = "D64")
 ```
 
@@ -744,6 +835,7 @@ enforced, with the risk of data loss, but with the insurance that
 numbers are represented as native integers.
 
 ``` r
+
 D64a <- h5read(file = "newfile3.h5", name = "D64", bit64conversion = "int")
 D64a
 ```
@@ -763,6 +855,7 @@ D64a
     ## [3,]   18   21   24   27   30
 
 ``` r
+
 storage.mode(D64a)
 ```
 
@@ -774,6 +867,7 @@ not represented as integer values anymore. For larger numbers there is
 still a data loss.
 
 ``` r
+
 D64b <- h5read(file = "newfile3.h5", name = "D64", bit64conversion = "double")
 D64b
 ```
@@ -793,6 +887,7 @@ D64b
     ## [3,]   18   21   24   27   30
 
 ``` r
+
 storage.mode(D64b)
 ```
 
@@ -809,6 +904,7 @@ with the data.\* When choosing this option the package
 *[bit64](https://CRAN.R-project.org/package=bit64)* will be loaded.
 
 ``` r
+
 D64c <- h5read(file = "newfile3.h5", name = "D64", bit64conversion = "bit64")
 D64c
 ```
@@ -829,6 +925,7 @@ D64c
     ## [3,] 18   21   24   27   30
 
 ``` r
+
 class(D64c)
 ```
 
@@ -841,6 +938,7 @@ class(D64c)
 Create a file.
 
 ``` r
+
 library(rhdf5)
 h5file <- H5Fcreate("newfile.h5")
 h5file
@@ -856,6 +954,7 @@ h5file
 and a group hierarchy
 
 ``` r
+
 h5group1 <- H5Gcreate(h5file, "foo")
 h5group2 <- H5Gcreate(h5file, "baa")
 h5group3 <- H5Gcreate(h5group1, "foobaa")
@@ -875,6 +974,7 @@ Create 4 different simple and scalar data spaces. The data space sets
 the dimensions for the datasets.
 
 ``` r
+
 d <- c(5, 7)
 h5space1 <- H5Screate_simple(d, d)
 h5space2 <- H5Screate_simple(d, NULL)
@@ -889,6 +989,7 @@ h5space1
     ##      maxsize 5 x 7
 
 ``` r
+
 H5Sis_simple(h5space1)
 ```
 
@@ -898,6 +999,7 @@ Create two datasets, one with integer and one with floating point
 numbers.
 
 ``` r
+
 h5dataset1 <- H5Dcreate(h5file, "dataset1", "H5T_IEEE_F32LE", h5space1)
 h5dataset2 <- H5Dcreate(h5group2, "dataset2", "H5T_STD_I32LE", h5space1)
 h5dataset1
@@ -914,6 +1016,7 @@ h5dataset1
 Now lets write data to the datasets.
 
 ``` r
+
 A <- seq(0.1, 3.5, length.out = 5 * 7)
 H5Dwrite(h5dataset1, A)
 B <- 1:35
@@ -925,6 +1028,7 @@ have to close datasets, dataspaces, and the file. There are different
 functions to close datasets, dataspaces, groups, and files.
 
 ``` r
+
 H5Dclose(h5dataset1)
 H5Dclose(h5dataset2)
 
@@ -943,12 +1047,13 @@ H5Fclose(h5file)
 ## Session Info
 
 ``` r
+
 sessionInfo()
 ```
 
-    ## R version 4.5.2 (2025-10-31)
+    ## R Under development (unstable) (2026-09-07 r90504)
     ## Platform: x86_64-pc-linux-gnu
-    ## Running under: Ubuntu 24.04.3 LTS
+    ## Running under: Ubuntu 24.04.4 LTS
     ## 
     ## Matrix products: default
     ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -967,17 +1072,17 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] rhdf5_2.55.13    BiocStyle_2.38.0
+    ## [1] rhdf5_2.57.12    BiocStyle_2.41.0
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] cli_3.6.5           knitr_1.51          rlang_1.1.7        
-    ##  [4] xfun_0.56           textshaping_1.0.4   jsonlite_2.0.0     
-    ##  [7] bit_4.6.0           htmltools_0.5.9     ragg_1.5.0         
-    ## [10] sass_0.4.10         rmarkdown_2.30      evaluate_1.0.5     
-    ## [13] jquerylib_0.1.4     fastmap_1.2.0       yaml_2.3.12        
-    ## [16] lifecycle_1.0.5     Rhdf5lib_1.32.0     bookdown_0.46      
-    ## [19] BiocManager_1.30.27 compiler_4.5.2      fs_1.6.6           
-    ## [22] rhdf5filters_1.22.0 systemfonts_1.3.1   digest_0.6.39      
-    ## [25] R6_2.6.1            bslib_0.10.0        bit64_4.6.0-1      
-    ## [28] tools_4.5.2         pkgdown_2.2.0       cachem_1.1.0       
-    ## [31] desc_1.4.3
+    ##  [1] cli_3.6.6           knitr_1.52          rlang_1.3.0        
+    ##  [4] xfun_0.60           otel_0.2.0          textshaping_1.0.5  
+    ##  [7] jsonlite_2.0.0      bit_4.6.0           htmltools_0.5.9    
+    ## [10] ragg_1.5.2          sass_0.4.10         rmarkdown_2.32     
+    ## [13] evaluate_1.0.5      jquerylib_0.1.4     fastmap_1.2.0      
+    ## [16] Rhdf5lib_2.1.0      yaml_2.3.12         lifecycle_1.0.5    
+    ## [19] bookdown_0.48       BiocManager_1.30.27 compiler_4.7.0     
+    ## [22] fs_2.1.0            rhdf5filters_1.25.4 systemfonts_1.3.2  
+    ## [25] digest_0.6.39       R6_2.6.1            bslib_0.12.0       
+    ## [28] bit64_4.8.6         tools_4.7.0         pkgdown_2.2.1      
+    ## [31] cachem_1.1.0        desc_1.4.3

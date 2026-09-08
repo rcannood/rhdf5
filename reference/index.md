@@ -5,9 +5,10 @@
 - [`rhdf5`](https://huber-group-embl.github.io/rhdf5/reference/rhdf5.md)
   : rhdf5: An interface between HDF5 and R
 
-## High level functions
+## High-level functions
 
-Wrappers around several low-level functions
+Wrappers around several low-level functions. All functions in this
+section start with `h5`.
 
 - [`h5testFileLocking()`](https://huber-group-embl.github.io/rhdf5/reference/h5_FileLocking.md)
   [`h5disableFileLocking()`](https://huber-group-embl.github.io/rhdf5/reference/h5_FileLocking.md)
@@ -48,6 +49,8 @@ Wrappers around several low-level functions
   : Create HDF5 attribute
 - [`h5createDataset()`](https://huber-group-embl.github.io/rhdf5/reference/h5createDataset.md)
   : Create HDF5 dataset
+- [`h5getAllChunkInfo()`](https://huber-group-embl.github.io/rhdf5/reference/h5getAllChunkInfo.md)
+  : Return detailed information on chunks of an HDF5 dataset
 - [`h5listIdentifier()`](https://huber-group-embl.github.io/rhdf5/reference/h5listObjects.md)
   [`h5validObjects()`](https://huber-group-embl.github.io/rhdf5/reference/h5listObjects.md)
   : List all open HDF5 objects.
@@ -297,8 +300,6 @@ Functions for working with HDF5 Datatypes
 
 ### File Creation Properties
 
-- [`H5Pget_version()`](https://huber-group-embl.github.io/rhdf5/reference/H5Pget_version.md)
-  : Get version information for objects in a file creation property list
 - [`H5Pset_shared_mesg_nindexes()`](https://huber-group-embl.github.io/rhdf5/reference/H5P_shared_mesg_nindexes.md)
   [`H5Pget_shared_mesg_nindexes()`](https://huber-group-embl.github.io/rhdf5/reference/H5P_shared_mesg_nindexes.md)
   : Get and set the number of object header message indexes
